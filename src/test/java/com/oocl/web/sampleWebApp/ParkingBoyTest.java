@@ -3,6 +3,7 @@ package com.oocl.web.sampleWebApp;
 import com.oocl.web.sampleWebApp.domain.ParkingBoy;
 import com.oocl.web.sampleWebApp.domain.ParkingBoyRepository;
 import com.oocl.web.sampleWebApp.models.ParkingBoyResponse;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ParkingBoyTest {
+
     @Autowired
     private ParkingBoyRepository parkingBoyRepository;
 
@@ -48,8 +50,8 @@ public class ParkingBoyTest {
 
         final ParkingBoyResponse[] parkingBoys = getContentAsObject(result, ParkingBoyResponse[].class);
 
-        assertEquals(1, parkingBoys.length);
-        assertEquals("boy", parkingBoys[0].getEmployeeId());
+        assertEquals(2, parkingBoys.length);
+        assertEquals("14120", parkingBoys[0].getEmployeeId());
     }
 
     @Test
