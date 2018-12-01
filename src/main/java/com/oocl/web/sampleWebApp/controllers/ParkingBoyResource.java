@@ -33,7 +33,7 @@ public class ParkingBoyResource {
     }
 
     private ResponseEntity<String> buildCreateResponse(ParkingBoy parkingBoy){
-        Long parkingBoyId = parkingBoy.getId();
+        String parkingBoyId = parkingBoy.getEmployeeId();
         URI location = URI.create("/parkingboys/" + parkingBoyId);
         return ResponseEntity.created(location).build();
     }
