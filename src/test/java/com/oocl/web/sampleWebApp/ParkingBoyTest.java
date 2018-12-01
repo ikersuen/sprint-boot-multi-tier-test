@@ -69,4 +69,18 @@ public class ParkingBoyTest {
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", containsString("/parkingboys/" + employeeId)));
     }
+
+    @Test
+    public void should_not_create_parking_boy_with_input_empty_string() throws Exception{
+        //Given a parkingboy {"employeeID":"String"} which employeeID is an empty string
+        String createTestParkingBoyJson = "{\"employeeId\":}";
+
+        //When POST to /parkingboys
+        mvc.perform(post("/parkingboys")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createTestParkingBoyJson)
+        )
+                //Then it should return 400 Bad Request
+                .andExpect(status().isBadRequest());
+    }
 }
