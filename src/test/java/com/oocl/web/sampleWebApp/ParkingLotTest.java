@@ -103,7 +103,7 @@ public class ParkingLotTest {
         final ParkingLotResponse[] parkingLots = getContentAsObject(result, ParkingLotResponse[].class);
 
         assertEquals(1, parkingLots.length);
-        assertEquals("Jason", parkingLots[0].getparkingLotId());
+        assertEquals("Jason", parkingLots[0].getParkingLotId());
         assertEquals(30, parkingLots[0].getCapacity());
         assertEquals(30, parkingLots[0].getAvailablePositionCount());
     }
