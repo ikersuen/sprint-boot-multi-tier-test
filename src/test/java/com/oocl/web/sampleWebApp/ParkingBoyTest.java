@@ -102,4 +102,20 @@ public class ParkingBoyTest {
         assertEquals("boy", parkingBoys[0].getEmployeeId());
     }
 
+
+
+    @Test
+    public void should_get_parking_boy_by_employeeId() throws Exception {
+        // Given a new parking boy
+        final ParkingBoy parkingBoy = parkingBoyRepository.saveAndFlush(new ParkingBoy("jason"));
+        // When GET to /parkingboys/{employeeId}
+        final MvcResult result = mvc.perform(MockMvcRequestBuilders
+                .get("/parkingboys/jason"))
+                .andReturn();
+        // Then it should return 200 OK
+        assertEquals(200, result.getResponse().getStatus());
+        final ParkingBoyResponse parkingBoyResponse = getContentAsObject(result, ParkingBoyResponse.class);
+        assertEquals("jason", parkingBoyResponse.getEmployeeId());
+    }
+
 }
