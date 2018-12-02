@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import javax.transaction.Transactional;
+
 import static com.oocl.web.sampleWebApp.WebTestUtil.getContentAsObject;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
@@ -25,32 +27,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
+
 public class ParkingLotTest {
     @Autowired
     private MockMvc mvc;
 
     @Autowired
     private ParkingLotRepository parkingLotRepository;
-
-    @Test
-    public void should_get_parking_lots() throws Exception {
-        // Given a new parking lot
-        final ParkingLot parkinglot = parkingLotRepository.save(new ParkingLot("Jason", 30));
-
-        // When GET to /parkinglots
-        final MvcResult result = mvc.perform(MockMvcRequestBuilders
-                .get("/parkinglots"))
-                .andReturn();
-
-        // Then it should return list of parkinglots
-        assertEquals(200, result.getResponse().getStatus());
-
-        final ParkingLotResponse[] parkingLots = getContentAsObject(result, ParkingLotResponse[].class);
-
-        assertEquals(1, parkingLots.length);
-        assertEquals("Jason", parkingLots[0].getparkingLotId());
-        assertEquals(30, parkingLots[0].getCapacity());
-    }
 
     @Test
     public void should_create_parking_lot_with_non_empty_string_and_valid_capacity_range() throws Exception{
@@ -101,6 +85,26 @@ public class ParkingLotTest {
         )
                 //Then it should return 400 Bad Request
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_get_parking_lots() throws Exception {
+        // Given a new parking lot
+        final ParkingLot parkinglot = parkingLotRepository.save(new ParkingLot("Jason", 30));
+
+        // When GET to /parkinglots
+        final MvcResult result = mvc.perform(MockMvcRequestBuilders
+                .get("/parkinglots"))
+                .andReturn();
+
+        // Then it should return list of parkinglots
+        assertEquals(200, result.getResponse().getStatus());
+
+        final ParkingLotResponse[] parkingLots = getContentAsObject(result, ParkingLotResponse[].class);
+
+        assertEquals(1, parkingLots.length);
+        assertEquals("Jason", parkingLots[0].getparkingLotId());
+        assertEquals(30, parkingLots[0].getCapacity());
     }
 
 }

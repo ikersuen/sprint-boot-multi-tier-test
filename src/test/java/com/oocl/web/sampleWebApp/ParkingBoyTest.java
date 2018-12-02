@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import javax.transaction.Transactional;
+
 import static com.oocl.web.sampleWebApp.WebTestUtil.getContentAsObject;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
@@ -27,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class ParkingBoyTest {
 
     @Autowired
@@ -34,25 +37,6 @@ public class ParkingBoyTest {
 
     @Autowired
     private MockMvc mvc;
-
-	@Test
-	public void should_get_parking_boys() throws Exception {
-	    // Given
-        final ParkingBoy boy = parkingBoyRepository.save(new ParkingBoy("boy"));
-
-        // When
-        final MvcResult result = mvc.perform(MockMvcRequestBuilders
-            .get("/parkingboys"))
-            .andReturn();
-
-        // Then
-        assertEquals(200, result.getResponse().getStatus());
-
-        final ParkingBoyResponse[] parkingBoys = getContentAsObject(result, ParkingBoyResponse[].class);
-
-        assertEquals(2, parkingBoys.length);
-        assertEquals("14120", parkingBoys[0].getEmployeeId());
-    }
 
     @Test
     public void should_create_parking_boy_with_non_empty_string() throws Exception{
@@ -97,5 +81,24 @@ public class ParkingBoyTest {
         )
                 //Then it should return 400 Bad Request
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void should_get_parking_boys() throws Exception {
+        // Given
+        final ParkingBoy boy = parkingBoyRepository.save(new ParkingBoy("boy"));
+
+        // When
+        final MvcResult result = mvc.perform(MockMvcRequestBuilders
+                .get("/parkingboys"))
+                .andReturn();
+
+        // Then
+        assertEquals(200, result.getResponse().getStatus());
+
+        final ParkingBoyResponse[] parkingBoys = getContentAsObject(result, ParkingBoyResponse[].class);
+
+        assertEquals(1, parkingBoys.length);
+        assertEquals("boy", parkingBoys[0].getEmployeeId());
     }
 }
