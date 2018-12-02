@@ -41,7 +41,7 @@ public class ParkingLotResource {
     }
 
     private ResponseEntity<String> buildCreateResponse(ParkingLot parkingLot){
-        String parkingLotId = parkingLot.getparkingLotId();
+        String parkingLotId = parkingLot.getParkingLotId();
         URI location = URI.create("/parkinglots/" + parkingLotId);
         return ResponseEntity.created(location).build();
     }

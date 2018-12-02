@@ -10,7 +10,7 @@ public class ParkingLotResponse {
     private int capacity;
     private int availablePositionCount;
 
-    public String getparkingLotId() {
+    public String getParkingLotId() {
         return parkingLotId;
     }
 
@@ -18,7 +18,7 @@ public class ParkingLotResponse {
         this.capacity = capacity;
     }
 
-    public void setparkingLotId(String parkingLotId) {
+    public void setParkingLotId(String parkingLotId) {
         this.parkingLotId = parkingLotId;
     }
     public void setAvailablePositionCount(int availablePositionCount) {this.availablePositionCount = availablePositionCount;}
@@ -27,7 +27,7 @@ public class ParkingLotResponse {
         Objects.requireNonNull(parkingLotId);
 
         final ParkingLotResponse response = new ParkingLotResponse();
-        response.setparkingLotId(parkingLotId);
+        response.setParkingLotId(parkingLotId);
         response.setCapacity(capacity);
         response.setAvailablePositionCount(availablePositionCount);
 
@@ -35,7 +35,7 @@ public class ParkingLotResponse {
     }
 
     public static ParkingLotResponse create(ParkingLot entity) {
-        return create(entity.getparkingLotId(), entity.getCapacity(), entity.getAvailablePositionCount());
+        return create(entity.getParkingLotId(), entity.getCapacity(), entity.getAvailablePositionCount());
     }
 
     @JsonIgnore
