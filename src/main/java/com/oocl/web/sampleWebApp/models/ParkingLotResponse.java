@@ -13,13 +13,19 @@ public class ParkingLotResponse {
     public String getParkingLotId() {
         return parkingLotId;
     }
+    public void setParkingLotId(String parkingLotId) {
+        this.parkingLotId = parkingLotId;
+    }
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
+    public int getCapacity() {
+        return capacity;
+    }
 
-    public void setParkingLotId(String parkingLotId) {
-        this.parkingLotId = parkingLotId;
+    public int getAvailablePositionCount() {
+        return availablePositionCount;
     }
     public void setAvailablePositionCount(int availablePositionCount) {this.availablePositionCount = availablePositionCount;}
 
@@ -43,11 +49,4 @@ public class ParkingLotResponse {
         return parkingLotId != null;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public int getAvailablePositionCount() {
-        return availablePositionCount;
-    }
 }

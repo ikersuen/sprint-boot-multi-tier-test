@@ -13,8 +13,6 @@ public class ParkingBoyResponse {
         return employeeId;
     }
 
-    private List<ParkingLotResponse> parkingLots;
-
     public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
@@ -34,22 +32,5 @@ public class ParkingBoyResponse {
     @JsonIgnore
     public boolean isValid() {
         return employeeId != null;
-    }
-
-    public List<ParkingLotResponse> getParkingLots() {
-        return parkingLots;
-    }
-
-    public void setParkingLots(List<ParkingLotResponse> parkingLots) {
-        this.parkingLots = parkingLots;
-    }
-
-    public static ParkingBoyResponse create(String employeeId, List<ParkingLotResponse> parkingLots) {
-        Objects.requireNonNull(employeeId);
-
-        final ParkingBoyResponse response = new ParkingBoyResponse();
-        response.setEmployeeId(employeeId);
-        response.setParkingLots(parkingLots);
-        return response;
     }
 }

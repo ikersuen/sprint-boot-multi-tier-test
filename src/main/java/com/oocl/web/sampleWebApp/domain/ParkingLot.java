@@ -14,7 +14,9 @@ public class ParkingLot {
     @Column(name = "parkinglot_id", length = 64, unique = true, nullable = false)
     private String parkingLotId;
 
-    private String parkingBoyId;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "parking_boy_id")
+    private ParkingBoy parkingBoy;
 
     @Max(100)
     @Min(1)
@@ -50,22 +52,15 @@ public class ParkingLot {
         this.availablePositionCount = capacity;
     }
 
-    public ParkingLot(String parkingLotId, int capacity, String parkingBoyId) {
-        this.parkingLotId = parkingLotId;
-        this.capacity = capacity;
-        this.availablePositionCount = capacity;
-        this.parkingBoyId = parkingBoyId;
-    }
-
     public int getAvailablePositionCount() {
         return availablePositionCount;
     }
 
-    public String getParkingBoyId() {
-        return parkingBoyId;
+    public ParkingBoy getParkingBoy() {
+        return parkingBoy;
     }
 
-    public void setParkingBoyId(String parkingBoyId) {
-        this.parkingBoyId = parkingBoyId;
+    public void setParkingBoy(ParkingBoy parkingBoy) {
+        this.parkingBoy = parkingBoy;
     }
 }
