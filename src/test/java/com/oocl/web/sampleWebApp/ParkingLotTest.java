@@ -85,4 +85,22 @@ public class ParkingLotTest {
                 //Then it should return 400 Bad Request
                 .andExpect(status().isBadRequest());
     }
+
+    @Test
+    public void should_not_create_parking_lot_with_too_long_string_and_valid_capacity_range() throws Exception{
+        //Given a parkinglot {"parkingLotID":"String", "capacity": "Integer"}
+        //which parkingLotID is a too long string, capacity is range from 1 - 100
+        String parkingLotId = "0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789";
+        int parkingLotCapacity = 10;
+        String createTestParkingLotJson = "{\"parkingLotId\":" + parkingLotId + ", \"capacity\":" + parkingLotCapacity + "}";
+
+        //When POST to /parkinglots
+        mvc.perform(post("/parkinglots")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createTestParkingLotJson)
+        )
+                //Then it should return 400 Bad Request
+                .andExpect(status().isBadRequest());
+    }
+
 }
