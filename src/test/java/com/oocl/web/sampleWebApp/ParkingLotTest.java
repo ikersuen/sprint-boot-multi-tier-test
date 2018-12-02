@@ -8,13 +8,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.oocl.web.sampleWebApp.WebTestUtil.getContentAsObject;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @RunWith(SpringRunner.class)
@@ -45,5 +50,23 @@ public class ParkingLotTest {
         assertEquals(1, parkingLots.length);
         assertEquals("Jason", parkingLots[0].getparkingLotId());
         assertEquals(30, parkingLots[0].getCapacity());
+    }
+
+    @Test
+    public void should_create_parking_lot_with_non_empty_string_and_valid_capacity_range() throws Exception{
+        //Given a parkinglot {"parkingLotID":"String", "capacity": "Integer"}
+        //which parkingLotID is a non-empty string and unique ID, capacity is range from 1 - 100
+        String parkingLotId = "14120";
+        int parkingLotCapacity = 10;
+        String createTestParkingLotJson = "{\"parkingLotId\":" + parkingLotId + ", \"capacity\":" + parkingLotCapacity + "}";
+
+        //When POST to /parkinglots
+        mvc.perform(post("/parkinglots")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createTestParkingLotJson)
+        )
+                //Then it should return 201 Created
+                .andExpect(status().isCreated())
+                .andExpect(header().string("Location", containsString("/parkinglots/" + parkingLotId)));
     }
 }

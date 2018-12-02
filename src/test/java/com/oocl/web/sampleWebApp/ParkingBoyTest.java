@@ -98,5 +98,4 @@ public class ParkingBoyTest {
                 //Then it should return 400 Bad Request
                 .andExpect(status().isBadRequest());
     }
-
 }
