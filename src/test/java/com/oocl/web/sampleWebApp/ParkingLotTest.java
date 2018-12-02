@@ -107,4 +107,21 @@ public class ParkingLotTest {
         assertEquals(30, parkingLots[0].getCapacity());
     }
 
+    @Test
+    public void should_not_create_parking_lot_with_non_empty_string_and_not_valid_capacity_range() throws Exception{
+        //Given a parkinglot {"parkingLotID":"String", "capacity": "Integer"}
+        //which parkingLotID is a non-empty string, capacity is out-of-range
+        String parkingLotId = "14120";
+        int parkingLotCapacity = 200;
+        String createTestParkingLotJson = "{\"parkingLotId\":" + parkingLotId + ", \"capacity\":" + parkingLotCapacity + "}";
+
+        //When POST to /parkinglots
+        mvc.perform(post("/parkinglots")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createTestParkingLotJson)
+        )
+                //Then it should return 400 Bad Request
+                .andExpect(status().isBadRequest());
+    }
+
 }
