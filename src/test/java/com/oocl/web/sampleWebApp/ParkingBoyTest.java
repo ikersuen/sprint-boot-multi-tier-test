@@ -84,4 +84,19 @@ public class ParkingBoyTest {
                 .andExpect(status().isBadRequest());
     }
 
+    @Test
+    public void should_not_create_parking_boy_with_string_exceeds_length_limit() throws Exception{
+        //Given a parkingboy {"employeeID":"String"} which employeeID is a too long string
+        String employeeId = "0123456789 0123456789 0123456789 0123456789 0123456789 0123456789 0123456789";
+        String createTestParkingBoyJson = "{\"employeeId\":" + employeeId + "}";
+
+        //When POST to /parkingboys
+        mvc.perform(post("/parkingboys")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createTestParkingBoyJson)
+        )
+                //Then it should return 400 Bad Request
+                .andExpect(status().isBadRequest());
+    }
+
 }
