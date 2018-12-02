@@ -16,7 +16,6 @@ public class ParkingLot {
 
     @Max(100)
     @Min(1)
-    @Column(name = "capacity")
     private int capacity;
 
     public int getCapacity() {
