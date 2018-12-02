@@ -105,6 +105,7 @@ public class ParkingLotTest {
         assertEquals(1, parkingLots.length);
         assertEquals("Jason", parkingLots[0].getparkingLotId());
         assertEquals(30, parkingLots[0].getCapacity());
+        assertEquals(30, parkingLots[0].getAvailablePositionCount());
     }
 
     @Test

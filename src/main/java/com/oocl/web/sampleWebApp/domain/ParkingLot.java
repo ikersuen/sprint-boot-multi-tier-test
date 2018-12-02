@@ -18,6 +18,8 @@ public class ParkingLot {
     @Min(1)
     private int capacity;
 
+    private int availablePositionCount;
+
     public int getCapacity() {
         return capacity;
     }
@@ -43,5 +45,10 @@ public class ParkingLot {
     public ParkingLot(String parkingLotId, int capacity) {
         this.parkingLotId = parkingLotId;
         this.capacity = capacity;
+        this.availablePositionCount = capacity;
+    }
+
+    public int getAvailablePositionCount() {
+        return availablePositionCount;
     }
 }
