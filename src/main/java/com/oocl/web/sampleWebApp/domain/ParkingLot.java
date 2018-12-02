@@ -50,6 +50,13 @@ public class ParkingLot {
         this.availablePositionCount = capacity;
     }
 
+    public ParkingLot(String parkingLotId, int capacity, String parkingBoyId) {
+        this.parkingLotId = parkingLotId;
+        this.capacity = capacity;
+        this.availablePositionCount = capacity;
+        this.parkingBoyId = parkingBoyId;
+    }
+
     public int getAvailablePositionCount() {
         return availablePositionCount;
     }

@@ -29,7 +29,7 @@ public class ParkingBoyResource {
     public ResponseEntity<ParkingBoyResponse> getByEmployeeId(@PathVariable String employeeId) {
         ParkingBoy parkingBoy = parkingBoyRepository.findByEmployeeId(employeeId);
         if(parkingBoy == null){
-             buildCreateFailResponse();
+             return ResponseEntity.badRequest().build();
         }
         ParkingBoyResponse parkingBoyResponse = ParkingBoyResponse.create(parkingBoy);
         return ResponseEntity.ok(parkingBoyResponse);
