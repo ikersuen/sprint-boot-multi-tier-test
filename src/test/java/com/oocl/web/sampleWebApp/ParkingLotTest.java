@@ -69,4 +69,20 @@ public class ParkingLotTest {
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", containsString("/parkinglots/" + parkingLotId)));
     }
+
+    @Test
+    public void should_not_create_parking_lot_with_empty_string_and_valid_capacity_range() throws Exception{
+        //Given a parkinglot {"parkingLotID":"String", "capacity": "Integer"}
+        //which parkingLotID is an empty string, capacity is range from 1 - 100
+        int parkingLotCapacity = 10;
+        String createTestParkingLotJson = "{\"parkingLotId\": , \"capacity\":" + parkingLotCapacity + "}";
+
+        //When POST to /parkinglots
+        mvc.perform(post("/parkinglots")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(createTestParkingLotJson)
+        )
+                //Then it should return 400 Bad Request
+                .andExpect(status().isBadRequest());
+    }
 }
