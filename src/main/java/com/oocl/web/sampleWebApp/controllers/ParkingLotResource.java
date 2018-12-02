@@ -8,8 +8,10 @@ import com.oocl.web.sampleWebApp.models.ParkingBoyResponse;
 import com.oocl.web.sampleWebApp.models.ParkingLotResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -28,7 +30,10 @@ public class ParkingLotResource {
     }
 
     @PostMapping
-    public ResponseEntity<String> addNewParkingLot(@RequestBody ParkingLot parkingLot){
+    public ResponseEntity<String> addNewParkingLot(@RequestBody @Valid ParkingLot parkingLot, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return buildCreateErrorResponse(bindingResult);
+        }
         if (parkingLotRepository.save(parkingLot) != null){
             return buildCreateResponse(parkingLot);
         }
@@ -43,6 +48,11 @@ public class ParkingLotResource {
 
     private ResponseEntity<String> buildCreateFailResponse(){
         return ResponseEntity.badRequest().build();
+    }
+
+    private ResponseEntity<String> buildCreateErrorResponse(BindingResult bindingResult){
+        String defaultMessage = bindingResult.getFieldError().getDefaultMessage();
+        return ResponseEntity.badRequest().body(defaultMessage);
     }
 
 }
