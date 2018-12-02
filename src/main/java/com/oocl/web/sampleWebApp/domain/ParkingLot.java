@@ -8,7 +8,7 @@ import javax.validation.constraints.Min;
 @Table(name = "parking_lot")
 public class ParkingLot {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "parkinglot_id", length = 64, unique = true, nullable = false)
