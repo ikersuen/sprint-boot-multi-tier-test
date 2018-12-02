@@ -57,7 +57,7 @@ public class ParkingBoyTest {
     @Test
     public void should_create_parking_boy_with_non_empty_string() throws Exception{
 	    //Given a parkingboy {"employeeID":"String"} which employeeID is a non-empty string and unique ID
-        int employeeId = 14120;
+        String employeeId = "14120";
         String createTestParkingBoyJson = "{\"employeeId\":" + employeeId + "}";
 
         //When POST to /parkingboys
@@ -83,4 +83,5 @@ public class ParkingBoyTest {
                 //Then it should return 400 Bad Request
                 .andExpect(status().isBadRequest());
     }
+
 }
