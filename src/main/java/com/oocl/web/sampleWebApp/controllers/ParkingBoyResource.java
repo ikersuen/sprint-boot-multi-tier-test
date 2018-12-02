@@ -5,6 +5,7 @@ import com.oocl.web.sampleWebApp.domain.ParkingBoyRepository;
 import com.oocl.web.sampleWebApp.models.ParkingBoyResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,6 +23,16 @@ public class ParkingBoyResource {
             .map(ParkingBoyResponse::create)
             .toArray(ParkingBoyResponse[]::new);
         return ResponseEntity.ok(parkingBoys);
+    }
+
+    @GetMapping(value = "/{employeeId}")
+    public ResponseEntity<ParkingBoyResponse> getByEmployeeId(@PathVariable String employeeId) {
+        ParkingBoy parkingBoy = parkingBoyRepository.findByEmployeeId(employeeId);
+        if(parkingBoy == null){
+             buildCreateFailResponse();
+        }
+        ParkingBoyResponse parkingBoyResponse = ParkingBoyResponse.create(parkingBoy);
+        return ResponseEntity.ok(parkingBoyResponse);
     }
 
     @PostMapping

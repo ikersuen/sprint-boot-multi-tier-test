@@ -14,6 +14,8 @@ public class ParkingLot {
     @Column(name = "parkinglot_id", length = 64, unique = true, nullable = false)
     private String parkingLotId;
 
+    private String parkingBoyId;
+
     @Max(100)
     @Min(1)
     private int capacity;
@@ -50,5 +52,13 @@ public class ParkingLot {
 
     public int getAvailablePositionCount() {
         return availablePositionCount;
+    }
+
+    public String getParkingBoyId() {
+        return parkingBoyId;
+    }
+
+    public void setParkingBoyId(String parkingBoyId) {
+        this.parkingBoyId = parkingBoyId;
     }
 }
